@@ -20,23 +20,25 @@
 
 function cut_exemplar(ex, output_dir, patchsize, scale, freq, is_white_bg, is_white_bg_output)
 
-exs = dir(ex);
+%exs = dir(ex);
 
-if(isdir(ex))
-    exs = exs(3:end);
-    idir = ex;
-else
-    idir = '.';
-end
+%if(isdir(ex))
+%    exs = exs(3:end);
+%    idir = ex;
+%else
+%    idir = '.';
+%end
 
 mkdir(output_dir);
 
-numim = length(exs);
+%numim = length(exs);
+numim = 1;
 nump = 100000;
 nump_per_im = nump / numim;
 
-test = [idir filesep exs(1).name];
-testim = imread(test);
+%test = [idir filesep exs(1).name];
+%testim = imread(test);
+testim = imread(ex);
 
 if(freq == -1)
     im = imresize(testim, scale);
@@ -66,26 +68,28 @@ else
 end
 
 
-for i=1:length(exs)
-    cex = [idir filesep exs(i).name];
-    im = imread(cex);
-    im = imresize(im, scale);
-    if(length(size(im)) == 3)
-        gim = rgb2gray(im);
-    else
-        gim = im;
-    end
-    
-    if(is_white_bg)
-        gim = 255 - gim;
-    end
-    [cgim, x1, x2, y1, y2] = crop_im(gim);
-    cim = im(x1:x2,y1:y2,:);
-    nm = exs(i).name;
-    [filepath,name,ext] = fileparts(nm);
-    savename = [output_dir filesep name];
-    im_cut_patches(cim,cgim,patchsize,stp,is_white_bg,is_white_bg_output,savename);
+%for i=1:length(exs)
+%cex = [idir filesep exs(i).name];
+%im = imread(cex);
+im = imread(ex);
+im = imresize(im, scale);
+if(length(size(im)) == 3)
+    gim = rgb2gray(im);
+else
+    gim = im;
 end
+    
+if(is_white_bg)
+    gim = 255 - gim;
+end
+[cgim, x1, x2, y1, y2] = crop_im(gim);
+cim = im(x1:x2,y1:y2,:);
+%nm = exs(i).name;
+nm = ex;
+[filepath,name,ext] = fileparts(nm);
+savename = [output_dir filesep name];
+im_cut_patches(cim,cgim,patchsize,stp,is_white_bg,is_white_bg_output,savename);
+%end
 
 end
 
