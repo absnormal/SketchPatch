@@ -63,7 +63,7 @@ class SketchPatchDataset(BaseDataset):
 			contextMask = tmp1
 			inverseContextMask = tmp2
 
-		hybrid = styled * inverseContextMask + unstyled * contextMask
+		hybrid = styled.dot(inverseContextMask) + unstyled * contextMask
 		return hybrid
 
 	def pilImageToNdarray(self, pilIm):
@@ -88,7 +88,7 @@ class SketchPatchDataset(BaseDataset):
 			B_paths (str)    -- image paths
 		"""
 
-		styled_path = self.styled_paths[index % self.styled_size] 
+		styled_path = self.styled_paths[index % self.styled_size]
 		unstyled_path = self.rreplace(styled_path, "styled", "plain", 1)
 		unstyled_path = self.rreplace(unstyled_path, "real_A", "fake_B", 1)
 		if self.input_nc == 1:
@@ -97,7 +97,7 @@ class SketchPatchDataset(BaseDataset):
 		else:
 			styled_img = Image.open(styled_path)
 			unstyled_img = Image.open(unstyled_path)
-		
+
 		maskDirections = ["Top", "Bot", "Left", "Right"]
 		dirs = np.round(np.random.rand(4))
 		dirs = np.nonzero(dirs)
@@ -114,7 +114,7 @@ class SketchPatchDataset(BaseDataset):
 
 		styled = self.pilImageToNdarray(styled_img)
 		unstyled = self.pilImageToNdarray(unstyled_img)
-		
+
 		vert0 = styled.shape[0]
 		hori0 = styled.shape[1]
 		vert = vert0
@@ -194,7 +194,7 @@ class SketchPatchDataset(BaseDataset):
 		real_img = np.asarray(real_img)
 		real_img = self.ndarrayToPilImage(real_img)
 		real = self.transform(real_img)
-		
+
 		context_mask = mask
 
 		return {'styled': styled, 'unstyled': unstyled, 'hybrid': hybrid, 'mask': context_mask, 'styled_path': styled_path, 'unstyled_path': unstyled_path, 'real': real}
