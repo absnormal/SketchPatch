@@ -1,0 +1,48 @@
+----------------- Options ---------------
+             aspect_ratio: 1.0                           
+               batch_size: 1                             
+          checkpoints_dir: checkpoints_sp                	[default: ./checkpoints]
+                crop_size: 256                           
+                 dataroot: None                          
+             dataset_mode: single                        
+                direction: AtoB                          
+               display_id: 1                             
+             display_port: 8097                          
+           display_server: http://localhost              
+          display_winsize: 256                           
+                    epoch: latest                        
+                     eval: False                         
+                  gpu_ids: [0]                           	[default: 0]
+                init_gain: 0.02                          
+                init_type: normal                        
+                 input_nc: 3                             
+                  isTrain: False                         	[default: None]
+                load_iter: 0                             	[default: 0]
+                load_size: 256                           
+         max_dataset_size: inf                           
+                    model: test                          
+             model_suffix:                               
+               n_layers_D: 3                             
+                     name: experiment_name               
+                       nc: 3                             
+                      ndf: 64                            
+                     netD: basic                         
+                     netG: resnet_9blocks                
+                      ngf: 64                            
+               no_dropout: False                         
+                  no_flip: False                         
+                     norm: instance                      
+                    ntest: inf                           
+                 num_test: 50                            
+              num_threads: 4                             
+                output_nc: 3                             
+                    phase: test                          
+               preprocess: resize_and_crop               
+           resize_or_crop: resize_and_crop               
+              results_dir: ./results/                    
+                 save_dir: bluecurveInv_epochx1          	[default: ]
+           serial_batches: False                         
+                  subname: local                         
+                   suffix:                               
+                  verbose: False                         
+----------------- End -------------------
